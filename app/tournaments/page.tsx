@@ -1,7 +1,7 @@
 import { MainNav } from '@/components/main-nav'
 import Link from 'next/link'
 
-export default function Home() {
+export default function TournamentsPage() {
   return (
     <>
       <div className="flex-col flex">
