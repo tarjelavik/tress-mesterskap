@@ -1,17 +1,5 @@
 import { cn } from "@/lib/utils"
 import { ActiveLink } from './active-link'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { draftMode } from 'next/headers'
-import { DotsVerticalIcon } from '@radix-ui/react-icons'
 
 export function MainNav({
   className,
@@ -35,7 +23,7 @@ export function MainNav({
         Resultatliste
       </ActiveLink>
       <ActiveLink
-        href="matches"
+        href="/matches"
         className="text-sm font-medium transition-colors hover:text-primary"
       >
         Spill
@@ -46,46 +34,6 @@ export function MainNav({
       >
         Turneringer
       </ActiveLink>
-      <ActiveLink
-        href="/studio"
-        className="text-sm font-medium transition-colors hover:text-primary"
-      >
-        Studio
-      </ActiveLink>
-      <UserNav />
     </nav>
-  )
-}
-function UserNav() {
-  const preview = draftMode().isEnabled ? { token: process.env.SANITY_API_READ_TOKEN! } : undefined
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="end" asChild>
-        <DotsVerticalIcon />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            {preview && (
-              <a
-                href="/api/disable-draft"
-              >
-                Stop previewing drafts
-              </a>
-            )}
-            {!preview && (
-              <>
-                <a
-                  href="/api/draft"
-                >
-                  Preview drafts
-                </a>
-              </>
-            )}
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
   )
 }

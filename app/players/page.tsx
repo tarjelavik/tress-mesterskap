@@ -6,10 +6,11 @@ import Link from 'next/link'
 import { MainNav } from '@/components/main-nav'
 import { getCachedClient } from "@/lib/sanity.client";
 import Players from './_components/players';
+import { UserNav } from '@/components/user-nav';
 
 export const metadata: Metadata = {
   title: "Spillere",
-  description: "Liste over alle tress-spillerne som har deltatt i VM i Tress (på Vaksdal).",
+  description: "Liste over alle tress-spillerne som har deltatt i VM i tress (på Vaksdal).",
 }
 
 export default async function PlayersPage() {
@@ -23,9 +24,12 @@ export default async function PlayersPage() {
       <div className="border-b">
         <div className="flex gap-3 h-16 items-center px-4">
           <Link href={`/`} className="font-bold">
-            VM i Tress
+            VM i tress
           </Link>
-          <MainNav />
+          <MainNav className="mx-6" />
+          <div className="ml-auto flex items-center space-x-4">
+            <UserNav />
+          </div>
         </div>
       </div>
       <div className="flex-1 space-y-4 p-8 pt-6">

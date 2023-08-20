@@ -32,21 +32,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import Link from 'next/link'
+import { urlForImage } from '@/lib/sanity.image'
+import player from '@/sanity/schemas/documents/player'
+import initials from 'initials'
+import { initial } from 'lodash'
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
@@ -58,9 +54,6 @@ interface PlayersSwitcherProps extends PopoverTriggerProps {
 export default function PlayerSwitcher({ players, currentPlayer, className }: PlayersSwitcherProps) {
   const [open, setOpen] = React.useState(false)
   const [showNewTeamDialog, setShowNewTeamDialog] = React.useState(false)
-  const [selectedPlayer, setSelectedPlayer] = React.useState<any>(
-    players[0]
-  )
 
   return (
     <Dialog open={showNewTeamDialog} onOpenChange={setShowNewTeamDialog}>
@@ -75,10 +68,12 @@ export default function PlayerSwitcher({ players, currentPlayer, className }: Pl
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
-                src={`https://avatar.vercel.sh/${selectedPlayer.value}.png`}
+                src={players.filter((player: any) => player._id === currentPlayer)[0].mainRepresentation
+                  ? urlForImage(players.filter((player: any) => player._id === currentPlayer)[0].mainRepresentation).width(25).height(25).url()
+                  : 'https://via.placeholder.com/25'}
                 alt={players.filter((player: any) => player._id === currentPlayer)[0].name}
               />
-              <AvatarFallback>SC</AvatarFallback>
+              <AvatarFallback>{initials(players.filter((player: any) => player._id === currentPlayer)[0].name)}</AvatarFallback>
             </Avatar>
             {players.filter((player: any) => player._id === currentPlayer)[0].name}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
@@ -87,7 +82,7 @@ export default function PlayerSwitcher({ players, currentPlayer, className }: Pl
         <PopoverContent className="w-[200px] p-0">
           <Command>
             <CommandList>
-              <CommandInput placeholder="Search team..." />
+              <CommandInput placeholder="Søk etter spiller..." />
               <CommandEmpty>Ingen spillere funnet</CommandEmpty>
               <CommandGroup heading='Andre spillere'>
                 {players.filter((player: any) => player._id != currentPlayer).map((player: any) => (
@@ -100,12 +95,15 @@ export default function PlayerSwitcher({ players, currentPlayer, className }: Pl
                   >
                     <Link className='flex' href={`/players/${player._id}`}>
                       <Avatar className="mr-2 h-5 w-5">
-                        <AvatarImage
-                          src={`https://avatar.vercel.sh/${player.value}.png`}
-                          alt={player.name}
-                          className="grayscale"
-                        />
-                        <AvatarFallback>SC</AvatarFallback>
+
+                        {player.mainRepresentation && (
+                          <AvatarImage
+                            src={urlForImage(player.mainRepresentation).width(25).height(25).url()}
+                            alt={player.name}
+                            className="grayscale"
+                          />
+                        )}
+                        <AvatarFallback>{initials(player.name)}</AvatarFallback>
                       </Avatar>
                       {player.name}
                     </Link>

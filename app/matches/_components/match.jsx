@@ -17,7 +17,7 @@ export default function Match({ match }) {
       {match.results && <MatchTable data={match.results} />}
 
       <div className='self-end'>
-        {
+        {/* {
           match.mainRepresentation && match._type === 'match' && (
             <div className="">
               <img
@@ -27,7 +27,7 @@ export default function Match({ match }) {
               />
             </div>
           )
-        }
+        } */}
         <p className='text-neutral-300 text-xs mt-2'>
           {match.gameStart ? (<Date dateString={match.gameStart} />) : null}
         </p>

@@ -31,7 +31,7 @@ const DynamicAccumulatedAverageGraph = dynamic(() =>
 
 export const metadata: Metadata = {
   title: "Spillere",
-  description: "Liste over alle tress-spillerne som har deltatt i VM i Tress (på Vaksdal).",
+  description: "Liste over alle tress-spillerne som har deltatt i VM i tress (på Vaksdal).",
 }
 
 export default async function PlayersPage({
@@ -46,7 +46,6 @@ export default async function PlayersPage({
     <>
       <div className="flex-1 space-y-4 p-8 pt-6">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-
           <Card className=''>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">

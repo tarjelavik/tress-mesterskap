@@ -13,7 +13,7 @@ export default function Header() {
       <nav className="flex items-center flex-wrap border-b border-slate-100 p-3 px-5">
         <a href="/">
           <span className="font-semibold text-xl tracking-tight mr-10">
-            VM i Tress
+            VM i tress
           </span>
         </a>
         <button
