@@ -15,7 +15,7 @@ import React from 'react'
 import { getLeaderboard } from '@/lib/functions'
 import { orderBy } from 'lodash'
 import { UserNav } from '@/components/user-nav'
-import PlayerImage from '@/app/players/_components/player-image'
+import PlayerImage from '@/app/(frontend)/players/_components/player-image'
 import YearSwitcher from '@/components/year-switcher'
 
 

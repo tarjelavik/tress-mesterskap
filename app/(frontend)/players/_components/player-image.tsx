@@ -1,6 +1,6 @@
 import cn from "classnames";
 import Link from "next/link";
-import { urlForImage } from "../../../lib/sanity.image";
+import { urlForImage } from "../../../../lib/sanity.image";
 
 export default function PlayerImage({ title, url, slug }: {
   title: any;

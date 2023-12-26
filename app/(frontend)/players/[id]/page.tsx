@@ -12,7 +12,7 @@ import { MainNav } from "@/components/main-nav"
 import PlayerSwitcher from "@/components/player-switcher"
 import { getPlayer } from "@/lib/api"
 import AverageScore from "@/components/average-score";
-import PlayerImage from "@/app/players/_components/player-image";
+import PlayerImage from "@/app/(frontend)/players/_components/player-image";
 import MatchesWon from "@/components/matchesWon";
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
