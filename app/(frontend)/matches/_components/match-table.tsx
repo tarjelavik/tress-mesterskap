@@ -107,6 +107,18 @@ export default function MatchTable({ data }: { data: any }) {
 
   const results = data;
 
+  const getScoreDisplay = (round: number) => {
+    if (round >= 90) return `${round} 🔥`;
+    if (round === 0) return `${round} 💎`;
+    return `${round}`;
+  };
+
+  const getBackgroundColor = (isWinner: boolean, round: number) => {
+    if (round === 0) return 'bg-green-100';
+    if (round > 90) return 'bg-red-100';
+    return '';
+  };
+
   const playerColumn = results.map((result: any, index: number) => (
     <tr key={result.player._id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
       <td className="border px-2 sm:py-1">
@@ -131,13 +143,11 @@ export default function MatchTable({ data }: { data: any }) {
         </div>
       </td>
       {result.score.map((round: any, index: any) => (
-        <td className="border px-2 py-1" key={index}>
-          {round >= 90 ? `${round} 🔥` : ''}
-          {round === 0 ? `${round} 💎` : ''}
-          {round !== 0 && round < 90 ? `${round}` : ''}
+        <td className={`border px-2 py-1 text-sm ${getBackgroundColor(result.isWinner, round)}`} key={index}>
+          {getScoreDisplay(round)}
         </td>
       ))}
-      <td className="border px-2 py-1">
+      <td className={`border px-2 py-1 text-sm ${result.isWinner ? 'font-bold text-yellow-900 bg-yellow-300' : ''}`}>
         {result.score.reduce((a: number, b: number) => a + b, 0)}
       </td>
     </tr>
