@@ -3,8 +3,9 @@ import Link from "next/link";
 import initials from 'initials';
 import { GiCard5Clubs, GiCard10Clubs, GiCardJackClubs, GiCardQueenClubs, GiCard5Diamonds, GiCard5Hearts, GiCard9Clubs, GiCard9Diamonds, GiCard9Hearts, GiCard3Spades, GiCard3Diamonds, GiCard3Clubs, GiCard4Diamonds, GiCard6Diamonds, GiCard7Diamonds } from 'react-icons/gi';
 import { urlForImage } from '@/lib/sanity.image';
+import Image from 'next/image';
 
-export default function MatchTable({ data }) {
+export default function MatchTable({ data }: { data: any }) {
   const iconsSize = '22px'
   const headers = [
     "",
@@ -84,7 +85,7 @@ export default function MatchTable({ data }) {
         </div>
       </div>
       <div className='self-center'>+1</div>
-    </div>, ,
+    </div>,
     "Totalt",
   ];
 
@@ -106,37 +107,30 @@ export default function MatchTable({ data }) {
 
   const results = data;
 
-  const playerColumn = results.map((result) => (
-    <tr key={result.player._id}>
+  const playerColumn = results.map((result: any, index: number) => (
+    <tr key={result.player._id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
       <td className="border px-2 sm:py-1">
-        <div className="flex flex-row gap-x-1 flex-nowrap">
-
-          {/* {result?.player?.mainRepresentation && (
-            <img
+        <div className="flex flex-row gap-x-3 flex-nowrap">
+          {result?.player?.mainRepresentation ? (
+            <Image
               alt=""
               className="rounded-full object-contain"
               src={urlForImage(result.player.mainRepresentation).height(25).width(25).url()}
+              width={25}
+              height={25}
             />
-          )} */}
+          ) : (
+            <div className="rounded-full object-contain bg-gray-200 w-6 h-6"></div>
+          )}
           <Link
             href={`/players/${result.player._id}`}
           >
-            {result.isWinner && (
-              <>
-                {/* <span className='hidden md:visible'>{result.player.name} ⭐</span> */}
-                <span>{initials(result.player.name)} ⭐</span>
-              </>
-            )}
-            {!result.isWinner && (
-              <>
-                {/* <span className='hidden sm:inline-block'>{result.player.name}</span> */}
-                <span>{initials(result.player.name)}</span>
-              </>
-            )}
+            <span className='hidden sm:inline'>{result.player.name} {result.isWinner && '⭐'}</span>
+            <span className='sm:hidden'>{initials(result.player.name)} {result.isWinner && '⭐'}</span>
           </Link>
         </div>
       </td>
-      {result.score.map((round, index) => (
+      {result.score.map((round: any, index: any) => (
         <td className="border px-2 py-1" key={index}>
           {round >= 90 ? `${round} 🔥` : ''}
           {round === 0 ? `${round} 💎` : ''}
@@ -144,7 +138,7 @@ export default function MatchTable({ data }) {
         </td>
       ))}
       <td className="border px-2 py-1">
-        {result.score.reduce((a, b) => a + b, 0)}
+        {result.score.reduce((a: number, b: number) => a + b, 0)}
       </td>
     </tr>
   ));

@@ -1,6 +1,7 @@
 import cn from "classnames";
 import Link from "next/link";
 import { urlForImage } from "../../../../lib/sanity.image";
+import Image from 'next/image';
 
 export default function PlayerImage({ title, url, slug }: {
   title: any;
@@ -8,7 +9,7 @@ export default function PlayerImage({ title, url, slug }: {
   slug?: any;
 }) {
   const image = (
-    <img
+    <Image
       width={400}
       height={400}
       alt={`Cover Image for ${title}`}

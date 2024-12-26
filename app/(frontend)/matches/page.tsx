@@ -10,7 +10,9 @@ export default async function MatchesPage() {
   const preview = draftMode().isEnabled
     ? { token: process.env.SANITY_API_READ_TOKEN }
     : undefined;
-  const matches = await getCachedClient(preview)(matchesQuery);
+  const matches = await getCachedClient(preview)(matchesQuery, {
+    lastGameStart: new Date().toISOString().split('.')[0] + 'Z'
+  });
   return (
     <div className="flex-col flex">
       <div className="border-b">
