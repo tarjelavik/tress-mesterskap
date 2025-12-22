@@ -40,7 +40,7 @@ export default function Players({ players }: { players: PlayerProps[] }) {
             <CardContent className='flex flex-auto p-0'>
               <div className="w-4/12">
               </div>
-              <div className="flex-grow overflow-hidden">
+              <div className="grow overflow-hidden">
                 {player.mainRepresentation ? (
                   <Image
                     src={urlForImage(player.mainRepresentation).height(890).width(650).fit('fillmax').url()}
@@ -62,7 +62,7 @@ export default function Players({ players }: { players: PlayerProps[] }) {
               <div className="w-4/12">
               </div>
             </CardContent>
-            <CardFooter className="flex flex-row-reverse flex-shrink-0 items-end justify-between content-center p-3">
+            <CardFooter className="flex flex-row-reverse shrink-0 items-end justify-between content-center p-3">
               <Avatar>
                 <AvatarFallback className='font-serif'>
                   <Link href={`/players/${player._id}`}>{initials(player.name)}</Link>
