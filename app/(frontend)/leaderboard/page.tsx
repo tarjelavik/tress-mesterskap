@@ -12,6 +12,8 @@ import { getAllPlayers, getMatchesByYear } from "@/lib/api"
 import Link from 'next/link'
 import { getLeaderboard } from '@/lib/functions'
 import { orderBy } from 'lodash'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
   title: "Resultatliste",
@@ -30,9 +32,9 @@ export default async function LeaderBoardPage() {
         <h2 className="text-3xl font-bold tracking-tight">Resultatliste</h2>
         <div className="flex flex-wrap gap-4 items-baseline space-y-2">
           {years ? years.map((year: number) => (
-            <div key={year} className='px-2 py-1 bg-emerald-200 rounded-md text-black font-bolder text-2xl'>
+            <Button key={year} variant="outline" asChild>
               <Link href={`/leaderboard/${year}`}>{year}</Link>
-            </div>
+            </Button>
           )) : null}
         </div>
         <div className="grid gap-4 md:grid-cols-1">

@@ -95,7 +95,7 @@ export default function MatchTable({ data }: { data: any }) {
         {headers.map((head, index) => (
           <th
             style={{ verticalAlign: "bottom" }}
-            className="px-2 py-1 bg-white dark:bg-gray-800 border-gray-500 dark:border-gray-600 border-b"
+            className="px-2 py-1"
             key={index}
           >
             {head}
@@ -128,8 +128,8 @@ export default function MatchTable({ data }: { data: any }) {
               alt=""
               className="rounded-full object-contain"
               src={urlForImage(result.player.mainRepresentation).height(25).width(25).url()}
-              width={25}
-              height={25}
+              width={24}
+              height={24}
             />
           ) : (
             <div className="rounded-full object-contain bg-gray-200 dark:bg-gray-700 w-6 h-6"></div>
@@ -155,8 +155,8 @@ export default function MatchTable({ data }: { data: any }) {
   ));
 
   return (
-    <div className="">
-      <table className="table-auto bg-gray-100 dark:bg-gray-900 w-full overflow-scroll">
+    <div className="w-full overflow-scroll">
+      <table className="table-auto ">
         {headerRow}
         <tbody>{playerColumn}</tbody>
       </table>
