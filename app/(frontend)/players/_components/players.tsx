@@ -9,7 +9,7 @@ import Image from 'next/image';
 type PlayerProps = {
   _id: string;
   name: string;
-  mainRepresentation: {
+  mainRepresentation?: {
     asset: {
       url: string;
     };
@@ -23,7 +23,6 @@ export default function Players({ players }: { players: PlayerProps[] }) {
     <section>
       <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {players.map((player: any) => (
-
           <Card key={player._id} className='flex flex-col h-full border rounded-xl shadow-xl'>
             <CardHeader className="flex flex-row justify-between items-center gap-3 space-y-0 pb-1 p-3">
               <Avatar>
@@ -40,7 +39,7 @@ export default function Players({ players }: { players: PlayerProps[] }) {
             <CardContent className='flex flex-auto p-0'>
               <div className="w-4/12">
               </div>
-              <div className="flex-grow overflow-hidden">
+              <div className="grow overflow-hidden">
                 {player.mainRepresentation ? (
                   <Image
                     src={urlForImage(player.mainRepresentation).height(890).width(650).fit('fillmax').url()}
@@ -55,14 +54,14 @@ export default function Players({ players }: { players: PlayerProps[] }) {
                     width={650}
                     height={990}
                     alt=""
-                    className='object-fill'
+                    className='object-fill dark:invert'
                   />
                 }
               </div>
               <div className="w-4/12">
               </div>
             </CardContent>
-            <CardFooter className="flex flex-row-reverse flex-shrink-0 items-end justify-between content-center p-3">
+            <CardFooter className="flex flex-row-reverse shrink-0 items-end justify-between content-center p-3">
               <Avatar>
                 <AvatarFallback className='font-serif'>
                   <Link href={`/players/${player._id}`}>{initials(player.name)}</Link>

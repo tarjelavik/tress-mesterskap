@@ -38,7 +38,7 @@ export default function Header() {
 
         <div
           className={`${active ? "" : "hidden"
-            }   w-full lg:inline-flex lg:flex-grow lg:w-auto lg:gap-x-2`}
+            }   w-full lg:inline-flex lg:grow lg:w-auto lg:gap-x-2`}
         >
           <div className="lg:inline-flex lg:w-auto w-full lg: py-2 rounded items-center justify-center">
             <a className="block" href="/leaderboard">

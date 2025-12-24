@@ -1,38 +1,37 @@
 import type { Metadata } from 'next'
 import PlayerSwitcher from '@/components/player-switcher'
-import { MainNav } from '@/components/main-nav'
 import { getAllPlayers } from '@/lib/api'
-import Link from 'next/link'
-import { UserNav } from '@/components/user-nav'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+import { Separator } from '@/components/ui/separator'
+
 
 export const metadata: Metadata = {
   title: 'VM i tress',
   description: 'VM i tress (på Vaksdal)',
 }
 
-export default async function RootLayout({
-  params: { id },
+export default async function PlayerLayout({
+  params,
   children,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
   children: React.ReactNode
 }) {
+  const { id } = await params
   const players = await getAllPlayers()
   return (
-    <div className="flex-col flex">
-      <div className="border-b">
-        <div className="flex gap-3 h-16 items-center px-4">
-          <Link href={`/`} className="font-bold">
-            VM i tress
-          </Link>
+    <>
+      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+        <div className="flex items-center gap-2 px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator
+            orientation="vertical"
+            className="mr-2 data-[orientation=vertical]:h-4"
+          />
           <PlayerSwitcher players={players} currentPlayer={id} />
-          <MainNav />
-          <div className="ml-auto flex items-center space-x-4">
-            <UserNav />
-          </div>
         </div>
-      </div>
+      </header>
       {children}
-    </div>
+    </>
   )
 }
