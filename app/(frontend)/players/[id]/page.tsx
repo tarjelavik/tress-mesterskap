@@ -34,84 +34,70 @@ export const metadata: Metadata = {
   description: "Liste over alle tress-spillerne som har deltatt i VM i tress (på Vaksdal).",
 }
 
-export default async function PlayersPage({
-  params: { id },
+export default async function PlayerPage({
+  params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const data = await getPlayer(id)
   const player = data[0]
 
   return (
-    <>
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card className=''>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Gjennomsnitt over {player.games.length} slag
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                {getPlayerAverageScore(player._id, player.games)}
-              </div>
-            </CardContent>
-          </Card>
-          <Card className=''>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Vunnet
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                <MatchesWon player={player._id} games={player.games} />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="grid gap-4 grid-cols-2">
-
-          <Card className=''>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Resultat per spill
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Suspense>
-                <DynamicScoreGraph player={player._id} games={player.games} />
-              </Suspense>
-            </CardContent>
-          </Card>
-
-          <Card className=''>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Utvikling av gjennomsnittet
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Suspense>
-                <DynamicAccumulatedAverageGraph
-                  player={player._id}
-                  games={player.games}
-                />
-              </Suspense>
-            </CardContent>
-          </Card>
-        </div>
+    <div className="flex-1 space-y-4 p-8 pt-6">
+      <h1 className="text-2xl font-bold">{player.name}</h1>
+      <p className="text-sm text-muted-foreground">{player.description}</p>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className=''>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Resultat per runde
+              Gjennomsnitt over {player.games.length} slag
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {getPlayerAverageScore(player._id, player.games)}
+            </div>
+          </CardContent>
+        </Card>
+        <Card className=''>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Vunnet
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              <MatchesWon player={player._id} games={player.games} />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-4 grid-cols-2">
+
+        <Card className=''>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Resultat per spill
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Suspense>
-              <DynamicScorePerRoundGraph
+              <DynamicScoreGraph player={player._id} games={player.games} />
+            </Suspense>
+          </CardContent>
+        </Card>
+
+        <Card className=''>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Utvikling av gjennomsnittet
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Suspense>
+              <DynamicAccumulatedAverageGraph
                 player={player._id}
                 games={player.games}
               />
@@ -119,6 +105,21 @@ export default async function PlayersPage({
           </CardContent>
         </Card>
       </div>
-    </>
+      <Card className=''>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium">
+            Resultat per runde
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Suspense>
+            <DynamicScorePerRoundGraph
+              player={player._id}
+              games={player.games}
+            />
+          </Suspense>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

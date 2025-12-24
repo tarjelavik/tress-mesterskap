@@ -8,13 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { MainNav } from "@/components/main-nav"
 import { getAllPlayers, getMatchesByYear } from "@/lib/api"
 import Link from 'next/link'
-import React from 'react'
 import { getLeaderboard } from '@/lib/functions'
 import { orderBy } from 'lodash'
-import { UserNav } from '@/components/user-nav'
 
 export const metadata: Metadata = {
   title: "Resultatliste",
@@ -29,17 +26,6 @@ export default async function LeaderBoardPage() {
 
   return (
     <div className="flex-col flex">
-      <div className="border-b">
-        <div className="flex gap-3 h-16 items-center px-4">
-          <Link href={`/`} className="font-bold">
-            VM i tress
-          </Link>
-          <MainNav className="mx-6" />
-          <div className="ml-auto flex items-center space-x-4">
-            <UserNav />
-          </div>
-        </div>
-      </div>
       <div className="flex-1 space-y-4 p-8 pt-6 min-h-screen">
         <h2 className="text-3xl font-bold tracking-tight">Resultatliste</h2>
         <div className="flex flex-wrap gap-4 items-baseline space-y-2">

@@ -12,8 +12,9 @@ import { DotsVerticalIcon } from '@radix-ui/react-icons'
 import { draftMode } from 'next/headers'
 import Link from 'next/link'
 
-export function UserNav() {
-  const preview = draftMode().isEnabled ? { token: process.env.SANITY_API_READ_TOKEN! } : undefined
+export async function UserNav() {
+  const { isEnabled } = await draftMode()
+  const preview = isEnabled ? { token: process.env.SANITY_API_READ_TOKEN! } : undefined
 
   return (
     <DropdownMenu>

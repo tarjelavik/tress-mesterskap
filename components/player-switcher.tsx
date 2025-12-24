@@ -7,7 +7,7 @@ import {
   PlusCircledIcon,
 } from "@radix-ui/react-icons"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/components/lib/utils"
 import {
   Avatar,
   AvatarFallback,
@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button"
 import {
   Command,
+  CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
@@ -25,12 +26,6 @@ import {
 } from "@/components/ui/command"
 import {
   Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 
 import {
@@ -40,15 +35,14 @@ import {
 } from "@/components/ui/popover"
 import Link from 'next/link'
 import { urlForImage } from '@/lib/sanity.image'
-import player from '@/sanity/schemas/documents/player'
 import initials from 'initials'
-import { initial } from 'lodash'
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 interface PlayersSwitcherProps extends PopoverTriggerProps {
   players: any,
   currentPlayer: string,
+  className?: string,
 }
 
 export default function PlayerSwitcher({ players, currentPlayer, className }: PlayersSwitcherProps) {
@@ -64,22 +58,22 @@ export default function PlayerSwitcher({ players, currentPlayer, className }: Pl
             role="combobox"
             aria-expanded={open}
             aria-label="Select a team"
-            className={cn("w-[200px] justify-between", className)}
+            className={cn("w-[200px] flex", className)}
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
-                src={players.filter((player: any) => player._id === currentPlayer)[0].mainRepresentation
+                src={players.filter((player: any) => player._id === currentPlayer)[0]?.mainRepresentation
                   ? urlForImage(players.filter((player: any) => player._id === currentPlayer)[0].mainRepresentation).width(25).height(25).url()
                   : 'https://via.placeholder.com/25'}
-                alt={players.filter((player: any) => player._id === currentPlayer)[0].name}
+                alt={players.filter((player: any) => player._id === currentPlayer)[0]?.name}
               />
-              <AvatarFallback>{initials(players.filter((player: any) => player._id === currentPlayer)[0].name)}</AvatarFallback>
+              <AvatarFallback>{initials(players.filter((player: any) => player._id === currentPlayer).name)}</AvatarFallback>
             </Avatar>
-            {players.filter((player: any) => player._id === currentPlayer)[0].name}
+            {players.filter((player: any) => player._id === currentPlayer)[0]?.name}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[200px] p-0 bg-white">
           <Command>
             <CommandList>
               <CommandInput placeholder="Søk etter spiller..." />
