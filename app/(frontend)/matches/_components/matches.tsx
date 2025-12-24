@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Match from './match';
 
 export function Matches({ matches }: { matches: any }) {
@@ -10,7 +9,3 @@ export function Matches({ matches }: { matches: any }) {
     </div>
   );
 }
-
-Matches.propTypes = {
-  matches: PropTypes.array.isRequired,
-};

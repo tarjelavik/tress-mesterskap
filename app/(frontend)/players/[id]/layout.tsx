@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'VM i tress (på Vaksdal)',
 }
 
-export default async function RootLayout({
+export default async function PlayerLayout({
   params,
   children,
 }: {

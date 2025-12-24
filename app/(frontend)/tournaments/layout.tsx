@@ -2,10 +2,8 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 
 export default async function RootLayout({
-  params,
   children,
 }: {
-  params: Promise<{ id: string }>
   children: React.ReactNode
 }) {
   return (
