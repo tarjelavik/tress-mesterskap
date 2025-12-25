@@ -10,7 +10,7 @@ export default function Match({ match }: { match: any }) {
         {match.name}
       </h3 >
 
-      {match.results && <MatchTable data={match.results} />}
+      {match.results && match.results.length > 0 && <MatchTable data={match.results} />}
 
       <div className='self-end'>
         {

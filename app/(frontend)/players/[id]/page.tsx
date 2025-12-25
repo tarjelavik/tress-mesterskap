@@ -44,11 +44,11 @@ export default async function PlayerPage({
   const player = data[0]
 
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <h1 className="text-2xl font-bold">{player.name}</h1>
+    <div className="flex-1 space-y-4 p-8 pt-0">
+      <h2 className="text-3xl font-bold tracking-tight">{player.name}</h2>
       <p className="text-sm text-muted-foreground">{player.description}</p>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className=''>
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Gjennomsnitt over {player.games.length} slag
@@ -60,7 +60,8 @@ export default async function PlayerPage({
             </div>
           </CardContent>
         </Card>
-        <Card className=''>
+
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Vunnet
@@ -76,7 +77,7 @@ export default async function PlayerPage({
 
       <div className="grid gap-4 grid-cols-2">
 
-        <Card className=''>
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Resultat per spill
@@ -89,7 +90,7 @@ export default async function PlayerPage({
           </CardContent>
         </Card>
 
-        <Card className=''>
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Utvikling av gjennomsnittet
@@ -105,7 +106,7 @@ export default async function PlayerPage({
           </CardContent>
         </Card>
       </div>
-      <Card className=''>
+      <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">
             Resultat per runde

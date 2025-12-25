@@ -70,8 +70,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="flex items-center justify-center p-2">
-              <ModeToggle />
+            <div className="flex items-center justify-start p-2">
+              <ModeToggle mode="light-dark-system" />
             </div>
           </SidebarMenuItem>
         </SidebarMenu>

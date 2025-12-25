@@ -7,7 +7,7 @@ import Players from './_components/players';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Breadcrumb, BreadcrumbSeparator, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb';
-import { ChevronRight, HomeIcon, UsersIcon } from 'lucide-react';
+import { ChevronRight, SpadeIcon, UsersIcon } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: "Spillere",
@@ -34,7 +34,7 @@ export default async function PlayersPage() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink href="/" className="flex items-center gap-2">
-                  <HomeIcon className="size-4" />
+                  <SpadeIcon className="size-4" />
                   VM i tress
                 </BreadcrumbLink>
               </BreadcrumbItem>
@@ -52,7 +52,7 @@ export default async function PlayersPage() {
         </div>
       </header>
       <div className="flex-col flex">
-        <div className="flex-1 space-y-4 p-8 pt-6">
+        <div className="flex-1 space-y-4 p-8 pt-0">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Spillere</h2>
           </div>
