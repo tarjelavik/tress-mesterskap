@@ -22,7 +22,7 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
-import { CardStackIcon } from '@radix-ui/react-icons'
+import { TrophyIcon } from 'lucide-react'
 
 // This is sample data.
 const data = {
@@ -41,8 +41,12 @@ const data = {
       title: "Spill",
       url: "/matches",
       icon: SquareTerminal,
-      // Direct link - no items array
-    }
+    },
+    {
+      title: "Turneringer",
+      url: "/tournaments",
+      icon: TrophyIcon,
+    },
   ]
 }
 

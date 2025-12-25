@@ -3,8 +3,6 @@
 import * as React from "react"
 import {
   CaretSortIcon,
-  CheckIcon,
-  PlusCircledIcon,
 } from "@radix-ui/react-icons"
 
 import { cn } from "@/components/lib/utils"
@@ -16,13 +14,11 @@ import {
 import { Button } from "@/components/ui/button"
 import {
   Command,
-  CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@/components/ui/command"
 import {
   Dialog,
@@ -36,6 +32,7 @@ import {
 import Link from 'next/link'
 import { urlForImage } from '@/lib/sanity.image'
 import initials from 'initials'
+import { Circle, SpadeIcon } from 'lucide-react'
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
@@ -67,7 +64,7 @@ export default function PlayerSwitcher({ players, currentPlayer, className }: Pl
                   : 'https://via.placeholder.com/25'}
                 alt={players.filter((player: any) => player._id === currentPlayer)[0]?.name}
               />
-              <AvatarFallback>{initials(players.filter((player: any) => player._id === currentPlayer).name)}</AvatarFallback>
+              <AvatarFallback><Circle className="size-4 fill-current" /></AvatarFallback>
             </Avatar>
             {players.filter((player: any) => player._id === currentPlayer)[0]?.name}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
@@ -94,10 +91,9 @@ export default function PlayerSwitcher({ players, currentPlayer, className }: Pl
                           <AvatarImage
                             src={urlForImage(player.mainRepresentation).width(25).height(25).url()}
                             alt={player.name}
-                            className="grayscale"
                           />
                         )}
-                        <AvatarFallback>{initials(player.name)}</AvatarFallback>
+                        <AvatarFallback><Circle className="size-4 fill-current" /></AvatarFallback>
                       </Avatar>
                       {player.name}
                     </Link>

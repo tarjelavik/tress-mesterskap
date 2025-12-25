@@ -1,5 +1,7 @@
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
+import { ChevronRight, SpadeIcon, TrophyIcon } from 'lucide-react'
 
 export default async function RootLayout({
   children,
@@ -15,6 +17,25 @@ export default async function RootLayout({
             orientation="vertical"
             className="mr-2 data-[orientation=vertical]:h-4"
           />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/" className="flex items-center gap-2">
+                  <SpadeIcon className="size-4" />
+                  VM i tress
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <ChevronRight />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/tournaments" className="flex items-center gap-2">
+                  <TrophyIcon className="size-4" />
+                  Turneringer
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
       </header>
       {children}
