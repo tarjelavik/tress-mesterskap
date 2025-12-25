@@ -41,7 +41,10 @@ export default async function Home() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/">VM i tress</BreadcrumbLink>
+                <BreadcrumbLink href="/" className="flex items-center gap-2">
+                  <SpadeIcon className="size-4" />
+                  VM i tress
+                </BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
