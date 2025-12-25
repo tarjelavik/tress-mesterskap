@@ -55,7 +55,7 @@ export default async function PlayerPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">i
+            <div className="text-2xl font-bold">
               {getPlayerAverageScore(player._id, player.games)}
             </div>
           </CardContent>
@@ -76,7 +76,6 @@ export default async function PlayerPage({
       </div>
 
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
