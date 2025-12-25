@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Users, ListOrdered, SquareTerminal } from 'lucide-react'
+import { Users, ListOrdered, SquareTerminal, SpadeIcon } from 'lucide-react'
 import { CardStackIcon } from '@radix-ui/react-icons'
 import { sanityFetch } from '@/sanity/lib/live'
 import { SanityLive } from '@/sanity/lib/live'
@@ -47,29 +47,17 @@ export default async function Home() {
           </Breadcrumb>
         </div>
       </header>
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 lg:p-8 min-w-0">
-
+      <div className="flex flex-1 flex-col gap-4 p-4 pt-0 min-w-0">
+        <Card className='col-span-2 flex flex-col justify-between rounded-lg flex-shrink-0'>
+          <CardHeader>
+            <CardTitle className='flex items-center gap-2 text-2xl font-bold tracking-tight'><SpadeIcon className="size-12" /> VM i tress</CardTitle>
+            <CardDescription>
+              Vaksdals-mesterskapet i tress, det tar aldri slutt!
+            </CardDescription>
+          </CardHeader>
+        </Card>
 
         <LiveStreaming />
-        <div className="grid grid-cols-3 items-stretch min-w-0 w-full gap-4">
-          <Card className='col-span-2 flex flex-col justify-between rounded-lg flex-shrink-0'>
-            <CardHeader>
-              <CardTitle className='text-2xl font-bold tracking-tight'>VM i tress</CardTitle>
-              <CardDescription>
-                Vaksdals-mesterskapet i tress, det tar aldri slutt!
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className='flex flex-col justify-between rounded-lg flex-shrink-0'>
-            <CardHeader>
-              <CardTitle className='text-red-500 leading-5'>LIVE-streaming og crypto-gambling kommer snart!</CardTitle>
-              <CardDescription>
-                {live.data.length} draft matches
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
 
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           <Link href="/players" className="group">

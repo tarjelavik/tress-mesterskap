@@ -105,7 +105,12 @@ export default function MatchTable({ data }: { data: any }) {
     </thead>
   );
 
-  const results = data;
+  const results = data || [];
+
+  // Filter out results without players and handle null/undefined cases
+  const validResults = results.filter((result: any) =>
+    result && result.player && result.player._id
+  );
 
   const getScoreDisplay = (round: number) => {
     if (round >= 90) return `${round} 🔥`;
@@ -119,40 +124,62 @@ export default function MatchTable({ data }: { data: any }) {
     return '';
   };
 
-  const playerColumn = results.map((result: any, index: number) => (
-    <tr key={result.player._id} className={`${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-800/50'}`}>
-      <td className="border dark:border-gray-700 px-2 sm:py-1">
-        <div className="flex flex-row gap-x-3 flex-nowrap">
-          {result?.player?.mainRepresentation ? (
-            <Image
-              alt=""
-              className="rounded-full object-contain"
-              src={urlForImage(result.player.mainRepresentation).height(25).width(25).url()}
-              width={24}
-              height={24}
-            />
-          ) : (
-            <div className="rounded-full object-contain bg-gray-200 dark:bg-gray-700 w-6 h-6"></div>
-          )}
-          <Link
-            href={`/players/${result.player._id}`}
-            className="dark:text-gray-100"
-          >
-            <span className='hidden sm:inline'>{result.player.name} {result.isWinner && '⭐'}</span>
-            <span className='sm:hidden'>{initials(result.player.name)} {result.isWinner && '⭐'}</span>
-          </Link>
-        </div>
-      </td>
-      {result.score.map((round: any, index: any) => (
-        <td className={`border dark:border-gray-700 px-2 py-1 text-sm dark:text-gray-100 ${getBackgroundColor(result.isWinner, round)}`} key={index}>
-          {getScoreDisplay(round)}
+  // Show message if no valid results
+  if (validResults.length === 0) {
+    return (
+      <div className="w-full p-4 text-center text-gray-500 dark:text-gray-400">
+        <p>No players added yet. Add players to start tracking scores.</p>
+      </div>
+    );
+  }
+
+  const playerColumn = validResults.map((result: any, index: number) => {
+    const playerId = result.player?._id || `player-${index}`;
+    const playerName = result.player?.name || 'Unknown Player';
+    const score = result.score || [];
+
+    return (
+      <tr key={playerId} className={`${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-800/50'}`}>
+        <td className="border dark:border-gray-700 px-2 sm:py-1">
+          <div className="flex flex-row gap-x-3 flex-nowrap">
+            {result?.player?.mainRepresentation ? (
+              <Image
+                alt=""
+                className="rounded-full object-contain"
+                src={urlForImage(result.player.mainRepresentation).height(25).width(25).url()}
+                width={24}
+                height={24}
+              />
+            ) : (
+              <div className="rounded-full object-contain bg-gray-200 dark:bg-gray-700 w-6 h-6"></div>
+            )}
+            {result.player?._id ? (
+              <Link
+                href={`/players/${result.player._id}`}
+                className="dark:text-gray-100"
+              >
+                <span className='hidden sm:inline'>{playerName} {result.isWinner && '⭐'}</span>
+                <span className='sm:hidden'>{initials(playerName)} {result.isWinner && '⭐'}</span>
+              </Link>
+            ) : (
+              <span className="dark:text-gray-100">
+                <span className='hidden sm:inline'>{playerName} {result.isWinner && '⭐'}</span>
+                <span className='sm:hidden'>{initials(playerName)} {result.isWinner && '⭐'}</span>
+              </span>
+            )}
+          </div>
         </td>
-      ))}
-      <td className={`border dark:border-gray-700 px-2 py-1 text-sm dark:text-gray-100 ${result.isWinner ? 'font-bold text-yellow-900 dark:text-yellow-100 bg-yellow-300 dark:bg-yellow-600' : ''}`}>
-        {result.score.reduce((a: number, b: number) => a + b, 0)}
-      </td>
-    </tr>
-  ));
+        {score.map((round: any, roundIndex: any) => (
+          <td className={`border dark:border-gray-700 px-2 py-1 text-sm dark:text-gray-100 ${getBackgroundColor(result.isWinner, round)}`} key={roundIndex}>
+            {getScoreDisplay(round)}
+          </td>
+        ))}
+        <td className={`border dark:border-gray-700 px-2 py-1 text-sm dark:text-gray-100 ${result.isWinner ? 'font-bold text-yellow-900 dark:text-yellow-100 bg-yellow-300 dark:bg-yellow-600' : ''}`}>
+          {score.reduce((a: number, b: number) => a + b, 0)}
+        </td>
+      </tr>
+    );
+  });
 
   return (
     <div className="w-full overflow-scroll">
