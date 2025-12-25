@@ -27,8 +27,13 @@ export default function ScoreGraph({ player, games }: { player: any, games: any 
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     type: 'line',
   };
   const data = getResultScoreSeries(player, games) as ChartData<'line'>;
-  return <Line data={data} options={options} />;
+  return (
+    <div className="w-full h-[300px] sm:h-[400px]">
+      <Line data={data} options={options} />
+    </div>
+  );
 }

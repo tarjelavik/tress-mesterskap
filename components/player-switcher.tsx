@@ -55,7 +55,7 @@ export default function PlayerSwitcher({ players, currentPlayer, className }: Pl
             role="combobox"
             aria-expanded={open}
             aria-label="Select a team"
-            className={cn("w-[200px] flex", className)}
+            className={cn("w-[250px] flex justify-start overflow-x-clip", className)}
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
