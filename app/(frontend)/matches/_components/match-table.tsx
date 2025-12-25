@@ -141,17 +141,17 @@ export default function MatchTable({ data }: { data: any }) {
     return (
       <tr key={playerId} className={`${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-800/50'}`}>
         <td className="border dark:border-gray-700 px-2 sm:py-1">
-          <div className="flex flex-row gap-x-3 flex-nowrap">
+          <div className="flex flex-row gap-x-3 flex-nowrap items-center">
             {result?.player?.mainRepresentation ? (
               <Image
                 alt=""
-                className="rounded-full object-contain"
+                className="rounded-full object-cover flex-shrink-0"
                 src={urlForImage(result.player.mainRepresentation).height(25).width(25).url()}
                 width={24}
                 height={24}
               />
             ) : (
-              <div className="rounded-full object-contain bg-gray-200 dark:bg-gray-700 w-6 h-6"></div>
+              <div className="rounded-full bg-gray-200 dark:bg-gray-700 w-6 h-6 flex-shrink-0 aspect-square"></div>
             )}
             {result.player?._id ? (
               <Link
