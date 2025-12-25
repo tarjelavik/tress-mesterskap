@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import Link from 'next/link'
+import { useSelectedLayoutSegment } from 'next/navigation'
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
@@ -47,6 +48,7 @@ interface YearSwitcherProps extends PopoverTriggerProps {
 }
 
 export default function YearSwitcher({ years, currentYear, className }: YearSwitcherProps) {
+  const segment = useSelectedLayoutSegment()
   const [open, setOpen] = React.useState(false)
   const [showNewYearDialog, setShowNewYearDialog] = React.useState(false)
 
@@ -61,7 +63,7 @@ export default function YearSwitcher({ years, currentYear, className }: YearSwit
             aria-label="Select a team"
             className={cn("w-[200px] justify-between", className)}
           >
-            {years.filter((year: any) => year === currentYear)[0]}
+            {segment?.length === 4 ? `${segment}` : 'Sammenlagt for alle år'}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -71,20 +73,22 @@ export default function YearSwitcher({ years, currentYear, className }: YearSwit
               <CommandInput placeholder="Søk etter år..." />
               <CommandEmpty>Ingen resultat for dette året</CommandEmpty>
               <CommandGroup heading='Andre år'>
-                {years.filter((year: any) => year != currentYear).map((year: any) => (
-                  <CommandItem
-                    key={year}
-                    onSelect={() => {
-                      setOpen(false)
-                    }}
-                    className="text-sm"
-                  >
-                    <Link className='flex' href={`/leaderboard/${year}`}>
-                      {year}
-                    </Link>
-
-                  </CommandItem>
-                ))}
+                {years.filter((year: any) => year != currentYear).map((year: any) => {
+                  const isActive = year === segment
+                  return (
+                    <CommandItem
+                      key={year}
+                      onSelect={() => {
+                        setOpen(false)
+                      }}
+                      className={cn("text-sm", isActive ? "bg-muted text-muted-foreground hover:bg-muted" : "")}
+                    >
+                      <Link className='flex' href={`/leaderboard/${year}`}>
+                        {year}
+                      </Link>
+                    </CommandItem>
+                  )
+                })}
               </CommandGroup>
             </CommandList>
           </Command>

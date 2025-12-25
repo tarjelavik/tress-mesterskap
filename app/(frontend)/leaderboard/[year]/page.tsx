@@ -8,32 +8,27 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { MainNav } from "@/components/main-nav"
-import { getMatchesByYear, getAllPlayersByYear } from "@/lib/api"
+import { getAllPlayersByYear } from "@/lib/api"
 import Link from 'next/link'
-import React from 'react'
 import { getLeaderboard } from '@/lib/functions'
 import { orderBy } from 'lodash'
-import { UserNav } from '@/components/user-nav'
 import PlayerImage from '@/app/(frontend)/players/_components/player-image'
-import YearSwitcher from '@/components/year-switcher'
-
 
 export const metadata: Metadata = {
   title: "Resultatliste",
   description: "Resultatliste for VM i tress (på Vaksdal)."
 }
 
-export default async function LeaderBoardByYearPage({ params: { year } }: { params: { year: string } }) {
+export default async function LeaderBoardByYearPage({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params
   const leaderboards = await getAllPlayersByYear(year);
-  const years = await getMatchesByYear()
   let data = getLeaderboard(leaderboards);
   data = orderBy(data, ["expectedWins"], ["desc"]);
   const isSeasonOver = new Date().getFullYear() > Number.parseInt(year)
 
   return (
     <div className="flex-col flex">
-      <div className="flex-1 space-y-4 p-8 pt-6 min-h-screen">
+      <div className="flex-1 space-y-4 p-8 pt-0min-h-screen">
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">Resultatliste {year}</h2>
         </div>

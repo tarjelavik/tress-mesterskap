@@ -2,12 +2,17 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { ChevronRight, HomeIcon, ListOrderedIcon } from 'lucide-react'
+import YearSwitcher from '@/components/year-switcher'
+import { getMatchesByYear } from '@/lib/api'
 
 export default async function LeaderboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const years = await getMatchesByYear()
+  const currentYear = new Date().getFullYear().toString()
+
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -19,7 +24,7 @@ export default async function LeaderboardLayout({
           />
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem>
+              <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink href="/" className="flex items-center gap-2">
                   <HomeIcon className="size-4" />
                   VM i tress
@@ -28,11 +33,17 @@ export default async function LeaderboardLayout({
               <BreadcrumbSeparator>
                 <ChevronRight />
               </BreadcrumbSeparator>
-              <BreadcrumbItem>
+              <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink href="/leaderboard" className="flex items-center gap-2">
                   <ListOrderedIcon className="size-4" />
                   Resultatliste
                 </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <ChevronRight />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <YearSwitcher years={years} currentYear={currentYear} />
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

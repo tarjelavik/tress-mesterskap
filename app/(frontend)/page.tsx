@@ -7,8 +7,28 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/co
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, ListOrdered, SquareTerminal } from 'lucide-react'
 import { CardStackIcon } from '@radix-ui/react-icons'
+import { sanityFetch } from '@/sanity/lib/live'
+import { SanityLive } from '@/sanity/lib/live'
+import { defineQuery } from 'next-sanity'
+import LiveStreaming from '@/components/live-streaming'
 
-export default function Home() {
+const draftMatchesQuery = defineQuery(`
+  *[_type == "match" && _id in path("drafts.*")] {
+    _id,
+    name,
+    gameStart,
+    results[]{
+      player->{_id, name, mainRepresentation},
+      isWinner,
+      score
+    }
+  }`)
+
+export default async function Home() {
+  const live = await sanityFetch({ query: draftMatchesQuery })
+
+  console.log(live)
+
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -28,6 +48,9 @@ export default function Home() {
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-6 lg:p-8 min-w-0">
+
+
+        <LiveStreaming />
         <div className="grid grid-cols-3 items-stretch min-w-0 w-full gap-4">
           <Card className='col-span-2 flex flex-col justify-between rounded-lg flex-shrink-0'>
             <CardHeader>
@@ -41,6 +64,9 @@ export default function Home() {
           <Card className='flex flex-col justify-between rounded-lg flex-shrink-0'>
             <CardHeader>
               <CardTitle className='text-red-500 leading-5'>LIVE-streaming og crypto-gambling kommer snart!</CardTitle>
+              <CardDescription>
+                {live.data.length} draft matches
+              </CardDescription>
             </CardHeader>
           </Card>
         </div>
@@ -115,9 +141,8 @@ export default function Home() {
             priority
           />
         </div>
-
-
-      </div >
+      </div>
+      <SanityLive />
     </>
   )
 }

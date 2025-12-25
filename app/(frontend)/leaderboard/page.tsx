@@ -28,7 +28,7 @@ export default async function LeaderBoardPage() {
 
   return (
     <div className="flex-col flex">
-      <div className="flex-1 space-y-4 p-8 pt-6 min-h-screen">
+      <div className="flex-1 space-y-4 p-8 pt-0min-h-screen">
         <h2 className="text-3xl font-bold tracking-tight">Resultatliste</h2>
         <div className="flex flex-wrap gap-4 items-baseline space-y-2">
           {years ? years.map((year: number) => (
