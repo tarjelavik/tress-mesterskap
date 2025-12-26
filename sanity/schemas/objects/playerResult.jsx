@@ -1,9 +1,13 @@
 let _ = require('lodash')
+import { PlayerResultItem } from './PlayerResultItem'
 
 export default {
   title: 'Player result',
   name: 'playerResult',
   type: 'object',
+  components: {
+    item: PlayerResultItem,
+  },
   fields: [
     {
       name: 'player',
@@ -33,8 +37,9 @@ export default {
     },
     prepare(selection) {
       const { title, score, winner } = selection
-      const scoreString = score.join(', ')
-      const scoreTotal = _.sum(score)
+      const scoreArray = score || [0, 0, 0, 0, 0]
+      const scoreString = scoreArray.join(', ')
+      const scoreTotal = _.sum(scoreArray)
       return {
         title: `${scoreString} = ${scoreTotal}`,
         subtitle: winner === true ? `⭐ ${title}` : `${title}`,
