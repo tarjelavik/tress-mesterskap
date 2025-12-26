@@ -48,7 +48,7 @@ export default async function Home() {
           </Breadcrumb>
         </div>
       </header>
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0 min-w-0">
+      <div className="flex flex-1 flex-col gap-4 p-8 pt-0 min-w-0">
         <Card className='col-span-2 flex flex-col justify-between rounded-lg flex-shrink-0'>
           <CardHeader>
             <CardTitle className='flex items-center gap-2 text-2xl font-bold tracking-tight'><SpadeIcon className="size-12" /> VM i tress</CardTitle>
