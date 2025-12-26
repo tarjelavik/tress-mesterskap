@@ -5,7 +5,7 @@ import {useDocumentPane} from 'sanity/desk'
 import {useCallback, useMemo, useRef, useEffect, useState} from 'react'
 
 type PlayerResult = {
-  _key?: string
+  _key: string
   player?: {_ref: string}
   isWinner?: boolean
   score?: number[]
