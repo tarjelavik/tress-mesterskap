@@ -1,4 +1,4 @@
-import { createClient, type SanityClient } from 'next-sanity'
+import { createClient, type QueryParams, type SanityClient } from 'next-sanity'
 import { cache } from 'react'
 
 export function getClient(preview?: { token?: string }): SanityClient {
@@ -28,3 +28,25 @@ export const getCachedClient = (preview?: { token?: string }) => {
 
   return cache(client.fetch.bind(client));
 };
+
+export async function sanityFetch<const QueryString extends string>({
+  query,
+  params = {},
+  revalidate = 60, // default revalidation time in seconds
+  tags = [],
+  preview,
+}: {
+  query: QueryString
+  params?: QueryParams
+  revalidate?: number | false
+  tags?: string[]
+  preview?: { token?: string }
+}) {
+  const client = getClient(preview)
+  return client.fetch(query, params, {
+    next: {
+      revalidate: tags.length ? false : revalidate, // for simple, time-based revalidation
+      tags, // for tag-based revalidation
+    },
+  })
+}

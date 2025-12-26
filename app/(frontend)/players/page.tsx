@@ -2,7 +2,7 @@ import { draftMode } from "next/headers";
 import { Metadata } from "next"
 
 import { PLAYERS_QUERY } from "@/lib/api"
-import { getCachedClient } from "@/lib/sanity.client";
+import { sanityFetch } from "@/lib/sanity.client";
 import Players from './_components/players';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -19,7 +19,11 @@ export default async function PlayersPage() {
   const preview = isEnabled
     ? { token: process.env.SANITY_API_READ_TOKEN }
     : undefined;
-  const players = await getCachedClient(preview)(PLAYERS_QUERY);
+  const players = await sanityFetch({
+    query: PLAYERS_QUERY,
+    tags: ['player', 'match'],
+    preview,
+  });
 
   return (
     <>

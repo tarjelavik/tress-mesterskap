@@ -1,6 +1,6 @@
 import { Matches } from './_components/matches'
 import { MATCHES_QUERY } from '@/lib/api';
-import { getCachedClient } from '@/lib/sanity.client';
+import { sanityFetch } from '@/lib/sanity.client';
 import { draftMode } from 'next/headers';
 
 export default async function MatchesPage() {
@@ -8,8 +8,13 @@ export default async function MatchesPage() {
   const preview = isEnabled
     ? { token: process.env.SANITY_API_READ_TOKEN }
     : undefined;
-  const matches = await getCachedClient(preview)(MATCHES_QUERY, {
-    lastGameStart: new Date().toISOString().split('.')[0] + 'Z'
+  const matches = await sanityFetch({
+    query: MATCHES_QUERY,
+    params: {
+      lastGameStart: new Date().toISOString().split('.')[0] + 'Z'
+    },
+    tags: ['match', 'player'],
+    preview,
   });
   return (
     <div className="flex-col flex">
