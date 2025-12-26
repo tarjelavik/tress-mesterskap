@@ -5,7 +5,6 @@ import Match from '@/app/(frontend)/matches/_components/match'
 import Date from '@/components/date'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
-import { Circle, CircleAlertIcon, CircleXIcon } from 'lucide-react'
 import { DotFilledIcon } from '@radix-ui/react-icons'
 
 async function fetchDraftMatches() {
