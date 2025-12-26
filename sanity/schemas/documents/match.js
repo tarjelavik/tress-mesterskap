@@ -21,9 +21,6 @@ export default {
       name: 'results',
       type: 'array',
       of: [{ type: 'playerResult' }],
-      options: {
-        modal: 'fullscreen',
-      },
     },
     {
       name: 'mainRepresentation',
