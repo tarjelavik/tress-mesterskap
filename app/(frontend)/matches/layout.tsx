@@ -1,7 +1,7 @@
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
-import { ChevronRight, SpadeIcon } from 'lucide-react'
+import { ChevronRight, SpadeIcon, Club } from 'lucide-react'
 
 export default async function MatchesLayout({
   children,
@@ -29,7 +29,10 @@ export default async function MatchesLayout({
                 <ChevronRight />
               </BreadcrumbSeparator>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/matches">Spill</BreadcrumbLink>
+                <BreadcrumbLink href="/matches" className="flex items-center gap-2">
+                  <Club className="size-4" />
+                  Spill
+                </BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

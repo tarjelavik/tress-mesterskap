@@ -5,8 +5,7 @@ import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Users, ListOrdered, SquareTerminal, SpadeIcon } from 'lucide-react'
-import { CardStackIcon } from '@radix-ui/react-icons'
+import { Users, ListOrdered, Club, SpadeIcon, TrophyIcon } from 'lucide-react'
 import { sanityFetch } from '@/sanity/lib/live'
 import { SanityLive } from '@/sanity/lib/live'
 import { defineQuery } from 'next-sanity'
@@ -79,7 +78,7 @@ export default async function Home() {
             <Card className="h-full transition-all hover:shadow-lg hover:scale-[1.02]">
               <CardHeader>
                 <div className="flex items-center gap-3">
-                  <SquareTerminal className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <Club className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
                   <CardTitle>Spill</CardTitle>
                 </div>
                 <CardDescription>
@@ -107,7 +106,7 @@ export default async function Home() {
             <Card className="h-full transition-all hover:shadow-lg hover:scale-[1.02]">
               <CardHeader>
                 <div className="flex items-center gap-3">
-                  <CardStackIcon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <TrophyIcon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
                   <CardTitle>Turneringer</CardTitle>
                 </div>
                 <CardDescription>

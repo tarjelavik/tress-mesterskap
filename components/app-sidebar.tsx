@@ -5,7 +5,7 @@ import {
   ListOrdered,
   PiIcon,
   SpadeIcon,
-  SquareTerminal,
+  Club,
   Users,
 } from "lucide-react"
 
@@ -40,7 +40,7 @@ const data = {
     {
       title: "Spill",
       url: "/matches",
-      icon: SquareTerminal,
+      icon: Club,
     },
     {
       title: "Turneringer",
