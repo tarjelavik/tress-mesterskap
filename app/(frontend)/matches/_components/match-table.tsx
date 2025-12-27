@@ -1,91 +1,135 @@
 /* eslint-disable react/jsx-key */
+"use client";
 import Link from "next/link";
 import initials from 'initials';
 import { GiCard5Clubs, GiCard10Clubs, GiCardJackClubs, GiCardQueenClubs, GiCard5Diamonds, GiCard5Hearts, GiCard9Clubs, GiCard9Diamonds, GiCard9Hearts, GiCard3Spades, GiCard3Diamonds, GiCard3Clubs, GiCard4Diamonds, GiCard6Diamonds, GiCard7Diamonds } from 'react-icons/gi';
+import { InfoIcon } from 'lucide-react';
 import { urlForImage } from '@/lib/sanity.image';
 import Image from 'next/image';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
+// Round card definitions
+const roundCards = [
+  null, // Round 0 (empty)
+  [
+    [GiCard5Diamonds, GiCard5Clubs, GiCard5Hearts],
+    [GiCard9Diamonds, GiCard9Clubs, GiCard9Hearts],
+  ],
+  [
+    [GiCard5Diamonds, GiCard5Clubs, GiCard5Hearts],
+    [GiCard9Clubs, GiCard10Clubs, GiCardJackClubs, GiCardQueenClubs],
+  ],
+  [
+    [GiCard5Diamonds, GiCard5Clubs, GiCard5Hearts],
+    [GiCard9Diamonds, GiCard9Clubs, GiCard9Hearts],
+    [GiCard3Diamonds, GiCard3Clubs, GiCard3Spades],
+  ],
+  [
+    [GiCard9Clubs, GiCard10Clubs, GiCardJackClubs, GiCardQueenClubs],
+    [GiCard4Diamonds, GiCard5Diamonds, GiCard6Diamonds, GiCard7Diamonds],
+  ],
+  [
+    [GiCard5Diamonds, GiCard5Clubs, GiCard5Hearts],
+    [GiCard9Diamonds, GiCard9Clubs, GiCard9Hearts],
+    [GiCard9Clubs, GiCard10Clubs, GiCardJackClubs, GiCardQueenClubs],
+    ['-1'],
+  ],
+];
+
+function RoundHeader({ roundNumber }: { roundNumber: number }) {
+  const iconsSize = '22px';
+  const cards = roundCards[roundNumber];
+
+  if (!cards) {
+    return <span>{roundNumber}</span>;
+  }
+
+  // Render card icons (for md only, hidden on lg+)
+  const renderCardIcons = () => {
+    return (
+      <div>
+        {cards.map((row, rowIndex) => {
+          // Handle special case for '-1' (round 5)
+          if (row.length === 1 && row[0] === '-1') {
+            return (
+              <div key={rowIndex} className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                +1
+              </div>
+            );
+          }
+
+          return (
+            <div key={rowIndex} className='flex'>
+              {row.map((CardIcon, iconIndex) => (
+                <CardIcon
+                  key={iconIndex}
+                  size={iconsSize}
+                  style={iconIndex > 0 ? { marginLeft: '-2px' } : {}}
+                />
+              ))}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  return (
+    <>
+      {/* Show card icons on md only (hidden on lg+) */}
+      <div className="hidden md:block lg:hidden">
+        {renderCardIcons()}
+      </div>
+
+      {/* Show number with info icon on sm and below, and lg and above */}
+      <div className="flex items-center gap-1 md:hidden lg:flex">
+        <span className="font-semibold">{roundNumber}</span>
+        <Popover>
+          <PopoverTrigger asChild>
+            <button className="inline-flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 p-1 transition-colors">
+              <InfoIcon className="h-3 w-3 text-gray-500 dark:text-gray-400" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-3" align="start">
+            <div className="space-y-2">
+              {cards.map((row, rowIndex) => {
+                // Handle special case for '-1' (round 5)
+                if (row.length === 1 && row[0] === '-1') {
+                  return (
+                    <div key={rowIndex} className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      +1
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={rowIndex} className="flex">
+                    {row.map((CardIcon, iconIndex) => (
+                      <CardIcon
+                        key={iconIndex}
+                        size={iconsSize}
+                        style={iconIndex > 0 ? { marginLeft: '-2px' } : {}}
+                      />
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </>
+  );
+}
 
 export default function MatchTable({ data }: { data: any }) {
-  const iconsSize = '22px'
   const headers = [
     "",
-    <div>
-      <div className='flex'>
-        <GiCard5Diamonds size={iconsSize} />
-        <GiCard5Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCard5Hearts size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-      <div className='flex'>
-        <GiCard9Diamonds size={iconsSize} />
-        <GiCard9Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCard9Hearts size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-    </div>,
-    <div>
-      <div className='flex'>
-        <GiCard5Diamonds size={iconsSize} />
-        <GiCard5Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCard5Hearts size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-      <div className='flex'>
-        <GiCard9Clubs size={iconsSize} />
-        <GiCard10Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCardJackClubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCardQueenClubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-    </div>,
-    <div>
-      <div className='flex'>
-        <GiCard5Diamonds size={iconsSize} />
-        <GiCard5Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCard5Hearts size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-      <div className='flex'>
-        <GiCard9Diamonds size={iconsSize} />
-        <GiCard9Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCard9Hearts size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-      <div className='flex'>
-        <GiCard3Diamonds size={iconsSize} />
-        <GiCard3Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCard3Spades size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-    </div>,
-    <div>
-      <div className='flex'>
-        <GiCard9Clubs size={iconsSize} />
-        <GiCard10Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCardJackClubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCardQueenClubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-      <div className='flex'>
-        <GiCard4Diamonds size={iconsSize} />
-        <GiCard5Diamonds size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCard6Diamonds size={iconsSize} style={{ marginLeft: '-2px' }} />
-        <GiCard7Diamonds size={iconsSize} style={{ marginLeft: '-2px' }} />
-      </div>
-    </div>,
-    <div className='flex'>
-      <div className='flex flex-col'>
-        <div className='flex'>
-          <GiCard5Diamonds size={iconsSize} />
-          <GiCard5Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-          <GiCard5Hearts size={iconsSize} style={{ marginLeft: '-2px' }} />
-        </div>
-        <div className='flex'>
-          <GiCard9Diamonds size={iconsSize} />
-          <GiCard9Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-          <GiCard9Hearts size={iconsSize} style={{ marginLeft: '-2px' }} />
-        </div>
-        <div className='flex'>
-          <GiCard9Clubs size={iconsSize} />
-          <GiCard10Clubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-          <GiCardJackClubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-          <GiCardQueenClubs size={iconsSize} style={{ marginLeft: '-2px' }} />
-        </div>
-      </div>
-      <div className='self-center'>+1</div>
-    </div>,
+    <RoundHeader key="round-1" roundNumber={1} />,
+    <RoundHeader key="round-2" roundNumber={2} />,
+    <RoundHeader key="round-3" roundNumber={3} />,
+    <RoundHeader key="round-4" roundNumber={4} />,
+    <RoundHeader key="round-5" roundNumber={5} />,
     "Totalt",
   ];
 
@@ -145,13 +189,13 @@ export default function MatchTable({ data }: { data: any }) {
             {result?.player?.mainRepresentation ? (
               <Image
                 alt=""
-                className="rounded-full object-cover flex-shrink-0"
+                className="rounded-full object-cover shrink-0 hidden sm:block"
                 src={urlForImage(result.player.mainRepresentation).height(25).width(25).url()}
                 width={24}
                 height={24}
               />
             ) : (
-              <div className="rounded-full bg-gray-200 dark:bg-gray-700 w-6 h-6 flex-shrink-0 aspect-square"></div>
+              <div className="rounded-full bg-gray-200 dark:bg-gray-700 w-6 h-6 shrink-0 aspect-square hidden sm:block"></div>
             )}
             {result.player?._id ? (
               <Link
