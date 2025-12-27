@@ -8,11 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { getAllPlayers, getMatchesByYear } from "@/lib/api"
+import { getAllLeaderboard, getMatchesByYear } from "@/lib/api"
 import Link from 'next/link'
 import { getLeaderboard } from '@/lib/functions'
 import { orderBy } from 'lodash'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 export default async function LeaderBoardPage() {
-  const leaderboard = await getAllPlayers();
+  const leaderboard = await getAllLeaderboard();
   const years = await getMatchesByYear()
   let data = getLeaderboard(leaderboard);
   data = orderBy(data, ["expectedWins"], ["desc"]);

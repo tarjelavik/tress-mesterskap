@@ -1,8 +1,5 @@
-import { draftMode } from "next/headers";
 import { Metadata } from "next"
-
-import { PLAYERS_QUERY } from "@/lib/api"
-import { sanityFetch } from "@/lib/sanity.client";
+import { getAllPlayers } from "@/lib/api"
 import Players from './_components/players';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -15,16 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default async function PlayersPage() {
-  const { isEnabled } = await draftMode()
-  const preview = isEnabled
-    ? { token: process.env.SANITY_API_READ_TOKEN }
-    : undefined;
-  const players = await sanityFetch({
-    query: PLAYERS_QUERY,
-    tags: ['player', 'match'],
-    preview,
-  });
-
+  const players = await getAllPlayers();
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
